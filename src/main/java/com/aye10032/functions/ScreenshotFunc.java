@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.SeleniumUtils;
@@ -17,8 +17,8 @@ public class ScreenshotFunc extends BaseFunc {
 
     static String BLANK = " ";
 
-    public ScreenshotFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public ScreenshotFunc(CommunismBot communismBot) {
+        super(communismBot);
     }
 
     static {
@@ -31,12 +31,12 @@ public class ScreenshotFunc extends BaseFunc {
         if (msg.startsWith("网页快照") || msg.startsWith(".网页快照")){
             msg = msg.replaceAll(" +", " ");
             String[] args = msg.split(" ");
-            zibenbot.pool.timeoutEvent(10, () -> {
+            communismBot.pool.timeoutEvent(10, () -> {
                 try {
                     if (args.length == 3) {
-                        replyMsg(simpleMsg, zibenbot.getImg(getScreenshot(args[1], Integer.parseInt(args[2]))));
+                        replyMsg(simpleMsg, communismBot.getImg(getScreenshot(args[1], Integer.parseInt(args[2]))));
                     } else if (args.length == 2) {
-                        replyMsg(simpleMsg, zibenbot.getImg(getScreenshot(args[1], 4000)));
+                        replyMsg(simpleMsg, communismBot.getImg(getScreenshot(args[1], 4000)));
                     } else {
                         replyMsg(simpleMsg, "参数异常，Example：网页快照 [url] [timeout]");
                     }
@@ -57,7 +57,7 @@ public class ScreenshotFunc extends BaseFunc {
 
     @Override
     public void setUp() {
-        File dir = new File(zibenbot.appDirectory + "/screenshot");
+        File dir = new File(communismBot.appDirectory + "/screenshot");
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -70,11 +70,11 @@ public class ScreenshotFunc extends BaseFunc {
                 i++;
             }
         }
-        Zibenbot.logInfoStatic("清理了三天前的缓存 " + i + " 张。");
+        CommunismBot.logInfoStatic("清理了三天前的缓存 " + i + " 张。");
     }
 
 
     public String getOutFileName(String url){
-        return zibenbot.appDirectory + "/screenshot/" + url.hashCode() + ".jpg";
+        return communismBot.appDirectory + "/screenshot/" + url.hashCode() + ".jpg";
     }
 }

@@ -1,6 +1,6 @@
 package com.aye10032.functions.funcutil;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ExceptionUtils;
 import com.dazo66.command.exceptions.RedundantParametersException;
 import com.dazo66.command.interfaces.ExceptionHandler;
@@ -14,21 +14,21 @@ public class FuncExceptionHandler implements ExceptionHandler {
 
     @Override
     public void checkExceptionCetch(Exception e) {
-        Zibenbot.logWarningStatic(ExceptionUtils.printStack(e));
+        CommunismBot.logWarningStatic(ExceptionUtils.printStack(e));
     }
 
     @Override
     public void commandRuntimeExceptionCatch(Exception e) {
-        Zibenbot.logWarningStatic(ExceptionUtils.printStack(e));
+        CommunismBot.logWarningStatic(ExceptionUtils.printStack(e));
     }
 
     @Override
     public void ifNotRunntimeExceptionCatch(Exception e) {
-        Zibenbot.logWarningStatic(ExceptionUtils.printStack(e));
+        CommunismBot.logWarningStatic(ExceptionUtils.printStack(e));
     }
 
     @Override
     public void redundantParametersExceptionCatch(RedundantParametersException e) {
-        Zibenbot.logWarningStatic(ExceptionUtils.printStack(e));
+        CommunismBot.logWarningStatic(ExceptionUtils.printStack(e));
     }
 }

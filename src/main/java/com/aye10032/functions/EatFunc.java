@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.data.EatData;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
@@ -23,11 +23,11 @@ public class EatFunc extends BaseFunc {
     private FoodUtil foodUtil;
     private RandomUtil randomUtil;
     private EatData eatData;
-    FoodClaass foodClaass = ConfigLoader.load(zibenbot.appDirectory + "/foodData.json", FoodClaass.class);
+    FoodClaass foodClaass = ConfigLoader.load(communismBot.appDirectory + "/foodData.json", FoodClaass.class);
     private Commander<SimpleMsg> commander;
 
-    public EatFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public EatFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
                 .start()
@@ -35,36 +35,36 @@ public class EatFunc extends BaseFunc {
                 .run((cqmsg) -> {
                     String[] total_list = ArrayUtils.concatAll(
                             eatData.getTongyi(), eatData.getKangshifu(), eatData.getHeweidao(), eatData.getHeweidao());
-                    zibenbot.replyMsg(cqmsg, randomUtil.getRandom(total_list));
+                    communismBot.replyMsg(cqmsg, randomUtil.getRandom(total_list));
                 })
                 .next()
                     .or("统一"::equals)
                     .run((cqmsg) -> {
-                        zibenbot.replyMsg(cqmsg, randomUtil.getRandom(eatData.getTongyi()) + "面");
+                        communismBot.replyMsg(cqmsg, randomUtil.getRandom(eatData.getTongyi()) + "面");
                     })
                     .or("康师傅"::equals)
                     .run((cqmsg) -> {
-                        zibenbot.replyMsg(cqmsg, randomUtil.getRandom(eatData.getKangshifu()) + "面");
+                        communismBot.replyMsg(cqmsg, randomUtil.getRandom(eatData.getKangshifu()) + "面");
                     })
                     .or("合味道"::equals)
                     .run((cqmsg) -> {
-                        zibenbot.replyMsg(cqmsg, randomUtil.getRandom(eatData.getHeweidao()) + "面");
+                        communismBot.replyMsg(cqmsg, randomUtil.getRandom(eatData.getHeweidao()) + "面");
                     })
                     .or("汤达人"::equals)
                     .run((cqmsg) -> {
-                        zibenbot.replyMsg(cqmsg, randomUtil.getRandom(eatData.getTangdaren()) + "面");
+                        communismBot.replyMsg(cqmsg, randomUtil.getRandom(eatData.getTangdaren()) + "面");
                     })
                 .pop()
                 .or(".一食堂"::equals)
                 .run((cqmsg)->{
                     if (cqmsg.getFromGroup() == 792666782L || cqmsg.getFromGroup() == 295904863L){
-                        zibenbot.replyMsg(cqmsg,randomUtil.getRandomWithSSR(
+                        communismBot.replyMsg(cqmsg,randomUtil.getRandomWithSSR(
                                 eatData.getCanteen1(),eatData.getCanteen1sr(),eatData.getCanteen1ssr(),30,100)[0]);
                     }
                 })
                 .or(".晚饭"::equals)
                 .run((cqmsg)->{
-                    zibenbot.replyMsg(cqmsg,randomUtil.getRandomWithSSR(
+                    communismBot.replyMsg(cqmsg,randomUtil.getRandomWithSSR(
                             eatData.getMainlist(),eatData.getSrList(),eatData.getSsrList(),30,100)[0]);
                 })
                 .build();

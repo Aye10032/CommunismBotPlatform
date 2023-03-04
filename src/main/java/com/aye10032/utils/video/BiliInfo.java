@@ -1,6 +1,6 @@
 package com.aye10032.utils.video;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ImgUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -62,7 +62,7 @@ public class BiliInfo {
         String body = null;
         try {
 
-            OkHttpClient client = Zibenbot.getOkHttpClient();
+            OkHttpClient client = CommunismBot.getOkHttpClient();
             Request request = new Request.Builder()
                     .url(apiURL)
                     .method("GET", null)

@@ -1,6 +1,6 @@
 package com.aye10032.timetask;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ExceptionUtils;
 import com.aye10032.utils.fund.FundingDetail;
 import com.aye10032.utils.fund.FundingUtils;
@@ -36,7 +36,7 @@ public class FundTask extends SubscribableBase {
         boolean hasUpdate = false;
         for (String s : args) {
             try {
-                FundingDetail status = FundingUtils.getFundingStatus(s, today, Zibenbot.getOkHttpClient());
+                FundingDetail status = FundingUtils.getFundingStatus(s, today, CommunismBot.getOkHttpClient());
                 if (status.getExpectWorthDate() != null
                     && status.getExpectWorthDate().startsWith(today)) {
                     hasUpdate = true;
@@ -49,7 +49,7 @@ public class FundTask extends SubscribableBase {
                     builder.append(String.format("  %s %s: %s \n", status.getName(), status.getNetWorthDate(), status.getDayGrowth()));
                 }
             } catch (Exception e) {
-                Zibenbot.logInfoStatic(ExceptionUtils.printStack(e));
+                CommunismBot.logInfoStatic(ExceptionUtils.printStack(e));
                 builder.append(String.format("  %s (读取异常)\n", s));
             }
         }
@@ -70,7 +70,7 @@ public class FundTask extends SubscribableBase {
         }
         return Pair.of(Arrays.stream(args).allMatch(s -> {
             try {
-                FundingUtils.getFundingStatus(s, TimeUtils.getDateString(System.currentTimeMillis()), Zibenbot.getOkHttpClient());
+                FundingUtils.getFundingStatus(s, TimeUtils.getDateString(System.currentTimeMillis()), CommunismBot.getOkHttpClient());
             } catch (Exception e) {
                 return false;
             }

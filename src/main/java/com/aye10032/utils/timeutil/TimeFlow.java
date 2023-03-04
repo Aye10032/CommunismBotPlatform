@@ -1,6 +1,6 @@
 package com.aye10032.utils.timeutil;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ExceptionUtils;
 
 import java.util.Date;
@@ -40,7 +40,7 @@ public class TimeFlow implements Runnable {
 
     @Override
     public void run() {
-        Zibenbot.logInfoStatic("Time Thread Start ");
+        CommunismBot.logInfoStatic("Time Thread Start ");
         //监听中断异常，有中断异常就跳出
         while (!Thread.currentThread().isInterrupted()) {
             //如果没有任务 就使线程长时间休眠
@@ -60,14 +60,14 @@ public class TimeFlow implements Runnable {
                     continue;
                 }
             } catch (InterruptedException e) {
-                Zibenbot.logInfoStatic("Time Thread Flush");
+                CommunismBot.logInfoStatic("Time Thread Flush");
                 break;//捕获到异常之后，执行break跳出循环。
             }
 
             for (TimedTaskBase task : pool.nextTasks) {
                 try {
                     if (!(task instanceof AsynchronousTaskPool)) {
-                        Zibenbot.logInfoStatic(String.format("触发任务: %s 时间：%s %d ", task.getClass().getSimpleName(), task.getTiggerTime(), task.getTiggerTime().getTime()));
+                        CommunismBot.logInfoStatic(String.format("触发任务: %s 时间：%s %d ", task.getClass().getSimpleName(), task.getTiggerTime(), task.getTiggerTime().getTime()));
                     } else {
                         //Zibenbot.logger.info("守护线程运行中");
                     }
@@ -83,7 +83,7 @@ public class TimeFlow implements Runnable {
                                 try {
                                     task.run(current);
                                 } catch (Exception e) {
-                                    Zibenbot.logWarningStatic(String.format("运行任务：[%s]时出现异常[%s]\n%s", this.getClass().getName(), e.getMessage(), ExceptionUtils.printStack(e)));
+                                    CommunismBot.logWarningStatic(String.format("运行任务：[%s]时出现异常[%s]\n%s", this.getClass().getName(), e.getMessage(), ExceptionUtils.printStack(e)));
                                 }
                             }
                         });
@@ -94,7 +94,7 @@ public class TimeFlow implements Runnable {
                         pool.remove(task);
                     }
                 } catch (Exception e) {
-                    Zibenbot.logWarningStatic(String.format("运行任务：[%s]时出现异常[%s]", task.getClass().getName(), e.getMessage()));
+                    CommunismBot.logWarningStatic(String.format("运行任务：[%s]时出现异常[%s]", task.getClass().getName(), e.getMessage()));
                 }
             }
         }

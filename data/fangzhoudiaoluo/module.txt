@@ -1,2 +1,0 @@
-[材料名称：【{name}】]
-    [{material_module}]

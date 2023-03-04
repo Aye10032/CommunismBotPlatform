@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import org.springframework.stereotype.Service;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GbferKillerFunc extends BaseFunc {
 
-    public GbferKillerFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public GbferKillerFunc(CommunismBot communismBot) {
+        super(communismBot);
     }
 
     @Override
@@ -20,8 +20,8 @@ public class GbferKillerFunc extends BaseFunc {
     @Override
     public void run(SimpleMsg simpleMsg) {
         if (simpleMsg.getMsg().contains("granbluefantasy")) {
-            zibenbot.muteMember(simpleMsg.getFromGroup(), simpleMsg.getFromClient(), 114);
-            zibenbot.replyMsgWithQuote(simpleMsg, "空骑士爪巴" + zibenbot.getImg(appDirectory + "/gbfKiller.jpg"));
+            communismBot.muteMember(simpleMsg.getFromGroup(), simpleMsg.getFromClient(), 114);
+            communismBot.replyMsgWithQuote(simpleMsg, "空骑士爪巴" + communismBot.getImg(appDirectory + "/gbfKiller.jpg"));
         }
     }
 }

@@ -1,12 +1,10 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
-import com.aye10032.data.ffxiv.FFXIVItemType;
+import com.aye10032.CommunismBot;
 import com.aye10032.data.ffxiv.entity.*;
 import com.aye10032.data.ffxiv.service.FFXIVService;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
-import com.aye10032.functions.funcutil.IQuoteHook;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.ffxiv.FFXIVMarketHelper;
 import com.dazo66.command.Commander;
@@ -46,8 +44,8 @@ public class FFXIVFunc extends BaseFunc {
             .expireAfterAccess(240, TimeUnit.MINUTES)
             .build();
 
-    public FFXIVFunc(Zibenbot zibenbot, FFXIVService service) {
-        super(zibenbot);
+    public FFXIVFunc(CommunismBot communismBot, FFXIVService service) {
+        super(communismBot);
         this.service = service;
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
@@ -64,17 +62,17 @@ public class FFXIVFunc extends BaseFunc {
                         House house = service.selectHouseByName(name);
                         if (house != null) {
                             FFData data = service.selectDataByName(name, msg.getFromGroup());
-                            zibenbot.replyMsg(msg, "绑定完成");
+                            communismBot.replyMsg(msg, "绑定完成");
                             if (data != null) {
-                                zibenbot.replyMsg(msg, "已经绑定过啦");
+                                communismBot.replyMsg(msg, "已经绑定过啦");
                             } else {
                                 service.insertData(name, msg.getFromGroup());
                             }
                         } else {
-                            zibenbot.replyMsg(msg, "数据库中没有记录，请装上插件后至少进入一次住房");
+                            communismBot.replyMsg(msg, "数据库中没有记录，请装上插件后至少进入一次住房");
                         }
                     } else {
-                        zibenbot.replyMsg(msg, "格式不正确！");
+                        communismBot.replyMsg(msg, "格式不正确！");
                     }
                 })
                 .pop()
@@ -82,7 +80,7 @@ public class FFXIVFunc extends BaseFunc {
                 .run((msg) -> {
                     List<FFData> dataList = service.selectDataByGroup(msg.getFromGroup());
                     if (dataList.isEmpty()) {
-                        zibenbot.replyMsg(msg, "本群当前没有绑定的信息");
+                        communismBot.replyMsg(msg, "本群当前没有绑定的信息");
                     } else {
                         StringBuilder builder = new StringBuilder();
                         builder.append("本群FF14房屋刷新时间列表：\n--------------------\n");
@@ -98,12 +96,12 @@ public class FFXIVFunc extends BaseFunc {
                                     .append(calendar.get(Calendar.HOUR_OF_DAY)).append(":").append(calendar.get(Calendar.MINUTE))
                                     .append(" 距拆房还剩").append(45 - time_distance).append("天\n");
                         }
-                        zibenbot.replyMsg(msg, builder.toString());
+                        communismBot.replyMsg(msg, builder.toString());
                     }
                 })
                 .or("帮助"::equals)
                 .run((msg) -> {
-                    zibenbot.replyMsg(msg, "https://www.aye10032.com/2022/08/17/2022-08-17-FF14-house-trigger/");
+                    communismBot.replyMsg(msg, "https://www.aye10032.com/2022/08/17/2022-08-17-FF14-house-trigger/");
                 })
                 .or("雇员"::equals)
                 .next()
@@ -114,10 +112,10 @@ public class FFXIVFunc extends BaseFunc {
                         String item_name = msgs[2];
                         Integer type = service.getItemTypeByName(item_name);
                         if (type == -1) {
-                            zibenbot.replyMsg(msg, "雇员带不回来这个哦");
+                            communismBot.replyMsg(msg, "雇员带不回来这个哦");
                         } else {
                             String item_info = "雇员带不回来这个哦";
-                            zibenbot.logInfo("查询到物品:" + item_name);
+                            communismBot.logInfo("查询到物品:" + item_name);
                             if (type.equals(PLANT)) {
                                 FFPlant plant = service.selectPlantByName(item_name);
                                 if (plant != null) {
@@ -137,10 +135,10 @@ public class FFXIVFunc extends BaseFunc {
                                             hunt.getItemCount(), hunt.getValueRequired(), "战职");
                                 }
                             }
-                            zibenbot.replyMsg(msg, item_info);
+                            communismBot.replyMsg(msg, item_info);
                         }
                     } else {
-                        zibenbot.replyMsg(msg, "格式不正确！");
+                        communismBot.replyMsg(msg, "格式不正确！");
                     }
                 })
                 .pop()
@@ -201,7 +199,7 @@ public class FFXIVFunc extends BaseFunc {
 
     @Override
     public void setUp() {
-        ffxivMarketHelper = new FFXIVMarketHelper(Zibenbot.getOkHttpClient(), "陆行鸟");
+        ffxivMarketHelper = new FFXIVMarketHelper(CommunismBot.getOkHttpClient(), "陆行鸟");
     }
 
     @Override

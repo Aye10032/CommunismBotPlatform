@@ -1,10 +1,9 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,8 +16,8 @@ import java.util.List;
 @Service
 public class ZipMessageTestFunc extends BaseFunc {
 
-    public ZipMessageTestFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public ZipMessageTestFunc(CommunismBot communismBot) {
+        super(communismBot);
     }
 
     @Override
@@ -34,7 +33,7 @@ public class ZipMessageTestFunc extends BaseFunc {
             for (int i = 0; i < 10; i++) {
                 list.add(RandomStringUtils.random(50));
             }
-            zibenbot.replyZipMsg(simpleMsg, list.toArray(new String[0]));
+            communismBot.replyZipMsg(simpleMsg, list.toArray(new String[0]));
         }
     }
 }

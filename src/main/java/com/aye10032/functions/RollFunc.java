@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
 import com.aye10032.functions.funcutil.SimpleMsg;
@@ -24,8 +24,8 @@ public class RollFunc extends BaseFunc {
     private Commander<SimpleMsg> commander;
 
 
-    public RollFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public RollFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
                 .start()
@@ -33,43 +33,43 @@ public class RollFunc extends BaseFunc {
                 .run((cqmsg) ->{
                     Random random = new Random();
                     int flag = random.nextInt(2) + 1;
-                    zibenbot.replyMsg(cqmsg, zibenbot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/2点");
+                    communismBot.replyMsg(cqmsg, communismBot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/2点");
                 })
                 .or(".r4"::equalsIgnoreCase)
                 .run((cqmsg) ->{
                     Random random = new Random();
                     int flag = random.nextInt(4) + 1;
-                    zibenbot.replyMsg(cqmsg, zibenbot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/4点");
+                    communismBot.replyMsg(cqmsg, communismBot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/4点");
                 })
                 .or(".r6"::equalsIgnoreCase)
                 .run((cqmsg) ->{
                     Random random = new Random();
                     int flag = random.nextInt(6) + 1;
-                    zibenbot.replyMsg(cqmsg, zibenbot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/6点");
+                    communismBot.replyMsg(cqmsg, communismBot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/6点");
                 })
                 .or(".r8"::equalsIgnoreCase)
                 .run((cqmsg) ->{
                     Random random = new Random();
                     int flag = random.nextInt(8) + 1;
-                    zibenbot.replyMsg(cqmsg, zibenbot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/8点");
+                    communismBot.replyMsg(cqmsg, communismBot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/8点");
                 })
                 .or(".r10"::equalsIgnoreCase)
                 .run((cqmsg) ->{
                     Random random = new Random();
                     int flag = random.nextInt(10) + 1;
-                    zibenbot.replyMsg(cqmsg, zibenbot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/10点");
+                    communismBot.replyMsg(cqmsg, communismBot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/10点");
                 })
                 .or(".r20"::equalsIgnoreCase)
                 .run((cqmsg) ->{
                     Random random = new Random();
                     int flag = random.nextInt(20) + 1;
-                    zibenbot.replyMsg(cqmsg, zibenbot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/20点");
+                    communismBot.replyMsg(cqmsg, communismBot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/20点");
                 })
                 .or(".r100"::equalsIgnoreCase)
                 .run((cqmsg) ->{
                     Random random = new Random();
                     int flag = random.nextInt(100) + 1;
-                    zibenbot.replyMsg(cqmsg, zibenbot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/100点");
+                    communismBot.replyMsg(cqmsg, communismBot.at(cqmsg.getFromClient()) + " 投出了" + flag + "/100点");
                 })
                 .build();
     }

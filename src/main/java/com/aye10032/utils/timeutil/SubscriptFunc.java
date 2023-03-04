@@ -1,6 +1,6 @@
 package com.aye10032.utils.timeutil;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.config.ScheduleConfig;
 import com.aye10032.entity.SubTask;
 import com.aye10032.entity.SubTaskExample;
@@ -26,21 +26,21 @@ import java.util.*;
 public class SubscriptFunc implements IFunc {
 
     private final SubTaskMapper subTaskMapper;
-    protected Zibenbot zibenbot;
+    protected CommunismBot communismBot;
     protected String appDirectory;
 
-    public SubscriptFunc(Zibenbot zibenbot, SubTaskMapper subTaskMapper) {
-        this.zibenbot = zibenbot;
+    public SubscriptFunc(CommunismBot communismBot, SubTaskMapper subTaskMapper) {
+        this.communismBot = communismBot;
         this.subTaskMapper = subTaskMapper;
-        if (zibenbot == null) {
+        if (communismBot == null) {
             appDirectory = "";
         } else {
-            appDirectory = zibenbot.appDirectory;
+            appDirectory = communismBot.appDirectory;
         }
     }
 
     /**
-     * 初始化 在{@link Zibenbot}中调用
+     * 初始化 在{@link CommunismBot}中调用
      */
     @Override
     public void setUp() {
@@ -232,8 +232,8 @@ public class SubscriptFunc implements IFunc {
     }
 
     public void replyMsg(SimpleMsg fromMsg, String msg) {
-        if (zibenbot != null) {
-            zibenbot.replyMsg(fromMsg, msg);
+        if (communismBot != null) {
+            communismBot.replyMsg(fromMsg, msg);
         } else {
             System.out.println(msg);
         }

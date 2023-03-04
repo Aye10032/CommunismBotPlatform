@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.MsgType;
 import com.aye10032.functions.funcutil.SimpleMsg;
@@ -19,8 +19,8 @@ public class SendGroupFunc extends BaseFunc {
     private List<Long> oplist = new ArrayList<>();
     private Map<Integer, Long> groupMap = new HashMap<>();
 
-    public SendGroupFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public SendGroupFunc(CommunismBot communismBot) {
+        super(communismBot);
     }
 
 
@@ -44,7 +44,7 @@ public class SendGroupFunc extends BaseFunc {
                 sendGroupMSG(simpleMsg);
             } else if ("send".equals(msg)) {
                 String desc = "send1 XP交流群\nsend2 TIS\nsend3 实验室\nsend4 搬运组\nsend5 LAB";
-                zibenbot.replyMsg(simpleMsg, desc);
+                communismBot.replyMsg(simpleMsg, desc);
             } else if (msg.startsWith("send1")) {
                 sendGroupMSG(simpleMsg, groupMap.get(1));
             } else if (msg.startsWith("send2")) {
@@ -65,14 +65,14 @@ public class SendGroupFunc extends BaseFunc {
             long group = Long.parseLong(msg.split(" ")[1]);
             int flag = msg.indexOf(" ", msg.indexOf(" ") + 1);
             msg = msg.substring(flag + 1);
-            zibenbot.toGroupMsg(group, msg);
+            communismBot.toGroupMsg(group, msg);
             simpleMsg.setFromGroup(group);
             simpleMsg.setType(MsgType.GROUP_MSG);
             simpleMsg.setMsg(msg);
-            zibenbot.runFuncs(simpleMsg);
+            communismBot.runFuncs(simpleMsg);
         } catch (Exception e) {
             replyMsg(simpleMsg, "运行出错：" + e + "\n" + ExceptionUtils.printStack(e));
-            zibenbot.log(Level.WARNING, "运行出错：" + e + "\n" + ExceptionUtils.printStack(e));
+            communismBot.log(Level.WARNING, "运行出错：" + e + "\n" + ExceptionUtils.printStack(e));
         }
     }
 
@@ -81,14 +81,14 @@ public class SendGroupFunc extends BaseFunc {
             String msg = simpleMsg.getMsg();
             int flag = msg.indexOf(" ");
             msg = msg.substring(flag + 1);
-            zibenbot.toGroupMsg(group, msg);
+            communismBot.toGroupMsg(group, msg);
             simpleMsg.setFromGroup(group);
             simpleMsg.setType(MsgType.GROUP_MSG);
             simpleMsg.setMsg(msg);
-            zibenbot.runFuncs(simpleMsg);
+            communismBot.runFuncs(simpleMsg);
         } catch (Exception e) {
             replyMsg(simpleMsg, "运行出错：" + e + "\n" + ExceptionUtils.printStack(e));
-            zibenbot.log(Level.WARNING, "运行出错：" + e + "\n" + ExceptionUtils.printStack(e));
+            communismBot.log(Level.WARNING, "运行出错：" + e + "\n" + ExceptionUtils.printStack(e));
         }
     }
 }

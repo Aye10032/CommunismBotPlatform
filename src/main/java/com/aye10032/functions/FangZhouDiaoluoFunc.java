@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.HttpUtils;
@@ -46,9 +46,9 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
     private Pair<Long, DiaoluoType.HeChenType> last = null;
     private boolean lastEnforce = false;
 
-    public FangZhouDiaoluoFunc(Zibenbot zibenbot) {
-        super(zibenbot);
-        if (zibenbot != null) {
+    public FangZhouDiaoluoFunc(CommunismBot communismBot) {
+        super(communismBot);
+        if (communismBot != null) {
             arkonegraphFile = appDirectory + "/fangzhoudiaoluo/Arkonegraph.jpg";
             cacheFile = appDirectory + "/cacheFile.json";
         } else {
@@ -89,7 +89,7 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
                 update();
             }
         }.setTiggerTime(date).setCycle(NEXT_DAY);
-        zibenbot.pool.add(task);
+        communismBot.pool.add(task);
     }
 
     @Override
@@ -120,10 +120,10 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
                 for (int i = 1; i < len; i++) {
                     boolean flag = true;
                     if (name_idList == null) {
-                        if (zibenbot == null) {
+                        if (communismBot == null) {
                             System.out.println("方舟掉落：初始化异常");
                         } else {
-                            zibenbot.replyMsgWithQuote(simpleMsg, "方舟掉落：初始化异常");
+                            communismBot.replyMsgWithQuote(simpleMsg, "方舟掉落：初始化异常");
                         }
                         return;
                     }
@@ -143,15 +143,15 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
                             max = f > max.getValue() ? Pair.of(type, f) : max;
                         }
                         if (max.getValue() < 0.5f) {
-                            if (zibenbot != null) {
-                                zibenbot.replyMsgWithQuote(simpleMsg, "找不到素材：【" + raw + "】");
+                            if (communismBot != null) {
+                                communismBot.replyMsgWithQuote(simpleMsg, "找不到素材：【" + raw + "】");
                             } else {
                                 System.out.println("找不到素材：【" + raw + "】");
                             }
                         } else {
                             last = Pair.of(simpleMsg.getFromClient(), max.getKey());
-                            if (zibenbot != null) {
-                                zibenbot.replyMsgWithQuote(simpleMsg, "你要找的是不是：【" + max.getKey().names[0] + "】");
+                            if (communismBot != null) {
+                                communismBot.replyMsgWithQuote(simpleMsg, "你要找的是不是：【" + max.getKey().names[0] + "】");
                             } else {
                                 System.out.println("你要找的是不是：【" + max.getKey().names[0] + "】");
                             }
@@ -159,7 +159,7 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
                     }
                 }
             } else {
-                zibenbot.replyMsgWithQuote(simpleMsg, getAllBestMap());
+                communismBot.replyMsgWithQuote(simpleMsg, getAllBestMap());
 
             }
         }
@@ -180,7 +180,7 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
                     getCalls(name_idList, t).forEach(s -> set.add(this.type.getMaterialFromID(s)));
                 }
             } catch (Exception e) {
-                zibenbot.logWarning("获得最佳列表出错：" + t + e.getMessage());
+                communismBot.logWarning("获得最佳列表出错：" + t + e.getMessage());
             }
         });
         set.forEach(material -> {
@@ -214,8 +214,8 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
             ret += "\n";
         }
         ret += "上次更新：" + Module.lastUpdate;
-        if (zibenbot != null) {
-            zibenbot.replyMsgWithQuote(msg, ret);
+        if (communismBot != null) {
+            communismBot.replyMsgWithQuote(msg, ret);
         } else {
             System.out.println(ret);
         }
@@ -223,7 +223,7 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
 
     public void update() {
         //System.out.println(arkonegraphFile);
-        zibenbot.logInfo("fangzhoudiaoluo load start");
+        communismBot.logInfo("fangzhoudiaoluo load start");
         File file = new File(cacheFile);
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(DiaoluoType.Material[].class, new MaterialsDeserializer())
@@ -263,7 +263,7 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
             }
             name_idList = list;
             reader.close();
-            Module.update(zibenbot.appDirectory);
+            Module.update(communismBot.appDirectory);
             module = Module.module;
 
             String last = jsonObject.get("gacha")
@@ -277,9 +277,9 @@ public class FangZhouDiaoluoFunc extends BaseFunc {
 
             client.close();
         } catch (Exception e) {
-            zibenbot.logInfo("方舟掉落更新出错：" + ExceptionUtils.getStackTrace(e));
+            communismBot.logInfo("方舟掉落更新出错：" + ExceptionUtils.getStackTrace(e));
         }
-        zibenbot.logInfo("fangzhoudiaoluo load end");
+        communismBot.logInfo("fangzhoudiaoluo load end");
     }
 
     private void update_img(String img_url) throws IOException {

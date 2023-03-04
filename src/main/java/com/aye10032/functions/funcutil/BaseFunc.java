@@ -1,6 +1,6 @@
 package com.aye10032.functions.funcutil;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 
 /**
  * 方法的基础类 所有方法只需要继承了IFunc
@@ -11,16 +11,16 @@ import com.aye10032.Zibenbot;
  */
 public abstract class BaseFunc implements IFunc {
 
-    public Zibenbot zibenbot;
+    public CommunismBot communismBot;
     protected String appDirectory;
 
 
-    public BaseFunc(Zibenbot zibenbot) {
-        this.zibenbot = zibenbot;
-        if (zibenbot == null) {
+    public BaseFunc(CommunismBot communismBot) {
+        this.communismBot = communismBot;
+        if (communismBot == null) {
             appDirectory = "";
         } else {
-            appDirectory = zibenbot.appDirectory;
+            appDirectory = communismBot.appDirectory;
         }
     }
 
@@ -31,8 +31,8 @@ public abstract class BaseFunc implements IFunc {
      * @param msg 要回复的内容
      */
     public void replyMsg(SimpleMsg fromMsg, String msg) {
-        if (zibenbot != null) {
-            zibenbot.replyMsg(fromMsg, msg);
+        if (communismBot != null) {
+            communismBot.replyMsg(fromMsg, msg);
         } else {
             System.out.println(msg);
         }
@@ -45,8 +45,8 @@ public abstract class BaseFunc implements IFunc {
      * @param msg     要回复的内容
      */
     public void replyMsgWithQuote(SimpleMsg fromMsg, String msg) {
-        if (zibenbot != null) {
-            zibenbot.replyMsgWithQuote(fromMsg, msg);
+        if (communismBot != null) {
+            communismBot.replyMsgWithQuote(fromMsg, msg);
         } else {
             System.out.println(msg);
         }
@@ -59,8 +59,8 @@ public abstract class BaseFunc implements IFunc {
      * @param msg     要回复的内容
      */
     public void replyMsgWithQuoteHook(SimpleMsg fromMsg, String msg, IQuoteHook hook) {
-        if (zibenbot != null) {
-            zibenbot.replyMsgWithQuoteHook(fromMsg, msg, hook);
+        if (communismBot != null) {
+            communismBot.replyMsgWithQuoteHook(fromMsg, msg, hook);
         } else {
             System.out.println(msg);
         }

@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
 import com.aye10032.functions.funcutil.SimpleMsg;
@@ -11,7 +11,6 @@ import com.dazo66.command.CommanderBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +21,8 @@ public class BiliFunc extends BaseFunc {
     AyeCompile compile;
     private Commander<SimpleMsg> commander;
 
-    public BiliFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public BiliFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
                 .start()
@@ -47,14 +46,14 @@ public class BiliFunc extends BaseFunc {
                             send += biliInfo.getCode();
                             send += " ";
                             send += codeMsg.get(biliInfo.getCode());
-                            zibenbot.replyMsg(cqmsg, send);
+                            communismBot.replyMsg(cqmsg, send);
                             return;
                         }
                         send = biliInfo.getTitle() + "\n"
                                 + biliInfo.getVideoUrl() + "\n"
-                                + "封面：" + (StringUtils.isNotEmpty(biliInfo.getFaceImageFilePath()) ? zibenbot.getImg(biliInfo.getFaceImageFilePath()) : "【图片下载出错】")
+                                + "封面：" + (StringUtils.isNotEmpty(biliInfo.getFaceImageFilePath()) ? communismBot.getImg(biliInfo.getFaceImageFilePath()) : "【图片下载出错】")
                                 + "\nup主：" + biliInfo.getUp() + "\n"
-                                + (StringUtils.isNotEmpty(biliInfo.getFaceImageFilePath()) ? zibenbot.getImg(biliInfo.getUpImageFilePath()) : "【图片下载出错】")
+                                + (StringUtils.isNotEmpty(biliInfo.getFaceImageFilePath()) ? communismBot.getImg(biliInfo.getUpImageFilePath()) : "【图片下载出错】")
                                 + "\n播放：" + formatToW(biliInfo.getView())
                                 + " 弹幕：" + formatToW(biliInfo.getDanmaku())
                                 + "\n点赞：" + formatToW(biliInfo.getLike())
@@ -62,7 +61,7 @@ public class BiliFunc extends BaseFunc {
                                 + " 收藏：" + formatToW(biliInfo.getFavorite())
                                 + " 评论：" + formatToW(biliInfo.getReply())
                                 + "\n简介：" + biliInfo.getDescription();
-                        zibenbot.replyMsg(cqmsg, send);
+                        communismBot.replyMsg(cqmsg, send);
                     }
                 })
                 .build();

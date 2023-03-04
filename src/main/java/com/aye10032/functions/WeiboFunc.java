@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.ExceptionUtils;
@@ -25,8 +25,8 @@ public class WeiboFunc extends BaseFunc {
             Pattern.compile("weibo_id=([0-9]{16})"),
             Pattern.compile("m\\.weibo\\.cn\\\\/status\\\\/([0-9]{16})")};
 
-    public WeiboFunc(Zibenbot zibenbot, WeiboReader weiboReader) {
-        super(zibenbot);
+    public WeiboFunc(CommunismBot communismBot, WeiboReader weiboReader) {
+        super(communismBot);
         this.weiboReader = weiboReader;
     }
 
@@ -47,9 +47,9 @@ public class WeiboFunc extends BaseFunc {
             }
             if (id != null) {
                 try {
-                    replyMsg(simpleMsg, weiboReader.postToUser(WeiboUtils.getWeiboWithId(Zibenbot.getOkHttpClient(), id)));
+                    replyMsg(simpleMsg, weiboReader.postToUser(WeiboUtils.getWeiboWithId(CommunismBot.getOkHttpClient(), id)));
                 } catch (Exception e) {
-                    zibenbot.logWarning("读取微博数据异常：" + ExceptionUtils.printStack(e));
+                    communismBot.logWarning("读取微博数据异常：" + ExceptionUtils.printStack(e));
                 }
             }
         }

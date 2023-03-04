@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.timetask.DragraliaTask;
@@ -21,8 +21,8 @@ public class DragraliaNewsFunc extends BaseFunc {
     private DragraliaTask task;
     private ArticleUpdateDate date = null;
 
-    public DragraliaNewsFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public DragraliaNewsFunc(CommunismBot communismBot) {
+        super(communismBot);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class DragraliaNewsFunc extends BaseFunc {
                 return null;
             }
         };
-        this.task.setBot(zibenbot);
+        this.task.setBot(communismBot);
         this.task.loader = new ConfigLoader<>(appDirectory + "/dragraliaFunc.json", Config.class);
         this.task.config = this.task.loader.load();
     }
@@ -63,7 +63,7 @@ public class DragraliaNewsFunc extends BaseFunc {
                             a.title_name = "获取公告异常 " + e;
                             a.article_id = integer;
                             articles.add(a);
-                            zibenbot.logWarning(ExceptionUtils.printStack(e));
+                            communismBot.logWarning(ExceptionUtils.printStack(e));
                         }
                     }));
                     date.update_article_list.forEach(date1 -> rs.add(() -> {
@@ -74,10 +74,10 @@ public class DragraliaNewsFunc extends BaseFunc {
                             a.title_name = "获取公告异常 " + e;
                             a.article_id = date1.id;
                             articles.add(a);
-                            zibenbot.logWarning(ExceptionUtils.printStack(e));
+                            communismBot.logWarning(ExceptionUtils.printStack(e));
                         }
                     }));
-                    zibenbot.pool.getAsynchronousPool().execute(() -> {
+                    communismBot.pool.getAsynchronousPool().execute(() -> {
                         TreeSet<DragraliaTask.Article> set = new TreeSet<>(Comparator.reverseOrder());
                         set.addAll(articles);
                         StringBuilder builder = new StringBuilder();
@@ -107,7 +107,7 @@ public class DragraliaNewsFunc extends BaseFunc {
                         a = task.getArticleFromNet(id, false);
                     } catch (Exception e) {
                         replyMsg(simpleMsg, "获取公告异常，公告id：" + id);
-                        zibenbot.logWarning(ExceptionUtils.printStack(e));
+                        communismBot.logWarning(ExceptionUtils.printStack(e));
                         continue;
                     }
                     ArrayList<SimpleMsg> list = new ArrayList<>();

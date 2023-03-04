@@ -1,12 +1,11 @@
 package com.aye10032.timetask;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ImgUtils;
 import com.aye10032.utils.timeutil.Reciver;
 import com.aye10032.utils.timeutil.SubscribableBase;
 import com.aye10032.utils.video.LiveInfo;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -28,14 +27,14 @@ public class LiveTask extends SubscribableBase {
         if (recivers != null) {
             for (Reciver reciver : recivers) {
                 LiveInfo liveInfo = new LiveInfo(args[0]);
-                Zibenbot.logDebugStatic("直播间" + args[0] + "检查结果：" + liveInfo.Is_living());
+                CommunismBot.logDebugStatic("直播间" + args[0] + "检查结果：" + liveInfo.Is_living());
                 if (liveInfo.HasLive() && liveInfo.Is_living()) {
                     long l = now.getTime() - liveInfo.getLiveDate().getTime();
                     long min = ((l / (60 * 1000)));
                     if (min < 5) {
                         ImgUtils.downloadImg(liveInfo.getLiveBackgroundUrl(), args[0], getBot().appDirectory);
 
-                        Zibenbot.logDebugStatic("尝试获取" + liveInfo.getUid() + "昵称");
+                        CommunismBot.logDebugStatic("尝试获取" + liveInfo.getUid() + "昵称");
                         builder.append(liveInfo.getNickName(liveInfo.getUid()))
                                 .append("在").append(min).append("分钟前开始了直播：")
                                 .append(liveInfo.getLiveTitle())
@@ -43,7 +42,7 @@ public class LiveTask extends SubscribableBase {
                                 .append("\n").append(liveInfo.getLiveUrl());
                         getBot().replyMsg(reciver.getSender(), builder.toString());
                     }
-                    Zibenbot.logDebugStatic("直播间" + args[0] + "直播开始于：" + min + "分钟之前");
+                    CommunismBot.logDebugStatic("直播间" + args[0] + "直播开始于：" + min + "分钟之前");
                 }
             }
         }

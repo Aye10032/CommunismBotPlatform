@@ -1,6 +1,6 @@
 package com.aye10032.timetask;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ExceptionUtils;
 import com.aye10032.utils.timeutil.Reciver;
 import com.aye10032.utils.timeutil.SubscribableBase;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +41,7 @@ public class GenshinWeiboTask extends SubscribableBase {
 
     @Override
     public void run(List<Reciver> recivers, String[] args) {
-        OkHttpClient client = Zibenbot.getOkHttpClient();
+        OkHttpClient client = CommunismBot.getOkHttpClient();
         WeiboSet posts = WeiboUtils.getWeiboSet(client, 6593199887L);
         if (postIds.isEmpty()) {
             posts.forEach(post -> postIds.add(post.getId()));

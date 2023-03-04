@@ -1,6 +1,6 @@
 package com.aye10032.utils.timeutil;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,10 +47,10 @@ public class TimeTaskPool {
             task.setTiggerTime(task.getNextTiggerTime());
             tasks.add(task);
             flow.flush();
-            Zibenbot.logInfoStatic(String.format("添加时间任务 触发时间：%s 当前时间%s",
+            CommunismBot.logInfoStatic(String.format("添加时间任务 触发时间：%s 当前时间%s",
                     task.getTiggerTime().toString(), new Date().toString()));
         } else {
-            Zibenbot.logWarningStatic("重复的时间任务：" + task.getClass().getName());
+            CommunismBot.logWarningStatic("重复的时间任务：" + task.getClass().getName());
         }
     }
 

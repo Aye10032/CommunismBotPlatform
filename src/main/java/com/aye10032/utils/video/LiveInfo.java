@@ -1,6 +1,6 @@
 package com.aye10032.utils.video;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -37,7 +37,7 @@ public class LiveInfo {
 
         String body = null;
         try {
-            OkHttpClient client = Zibenbot.getOkHttpClient();
+            OkHttpClient client = CommunismBot.getOkHttpClient();
             Request request = new Request.Builder()
                     .url(url)
                     .method("GET", null)
@@ -118,7 +118,7 @@ public class LiveInfo {
         String body = "";
         String name = "";
         try {
-            OkHttpClient client = Zibenbot.getOkHttpClient();
+            OkHttpClient client = CommunismBot.getOkHttpClient();
             Request request = new Request.Builder()
                     .url(url)
                     .header("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36")

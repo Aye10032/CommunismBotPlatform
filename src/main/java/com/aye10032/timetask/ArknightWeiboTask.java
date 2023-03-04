@@ -1,6 +1,6 @@
 package com.aye10032.timetask;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ExceptionUtils;
 import com.aye10032.utils.timeutil.Reciver;
 import com.aye10032.utils.timeutil.SubscribableBase;
@@ -16,12 +16,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 
 /**
@@ -52,7 +49,7 @@ public class ArknightWeiboTask extends SubscribableBase {
 
     @Override
     public void run(List<Reciver> recivers, String[] args) {
-        OkHttpClient client = Zibenbot.getOkHttpClient();
+        OkHttpClient client = CommunismBot.getOkHttpClient();
         WeiboSet posts = WeiboUtils.getWeiboSet(client, 6279793937L);
         if (postIds.isEmpty()) {
             posts.forEach(post -> postIds.add(post.getId()));
@@ -105,7 +102,7 @@ public class ArknightWeiboTask extends SubscribableBase {
 
     public static WeiboPost getPostFromOff(WeiboSetItem item) throws IOException {
         if (item.isOffAnnounce()) {
-            OkHttpClient client = Zibenbot.getOkHttpClient();
+            OkHttpClient client = CommunismBot.getOkHttpClient();
             Request officialWebsiteRequest = new Request.Builder()
                 .url(item.getId())
                 .method("GET", null)
@@ -139,7 +136,7 @@ public class ArknightWeiboTask extends SubscribableBase {
     }
 
     public static WeiboSetItem getPostUrlFromOff() throws IOException {
-        OkHttpClient client = Zibenbot.getOkHttpClient();
+        OkHttpClient client = CommunismBot.getOkHttpClient();
         Request officialWebsiteRequest = new Request.Builder()
                 .url("https://ak-fs.hypergryph.com/announce/Android/announcement.meta.json")
                 .method("GET", null)

@@ -1,6 +1,6 @@
 package com.aye10032.utils.weibo;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ExceptionUtils;
 import com.aye10032.utils.HttpUtils;
 import com.google.gson.JsonArray;
@@ -101,7 +101,7 @@ public class WeiboUtils {
             post.setTop(item.getIsTop());
             return post;
         } catch (Exception e) {
-            Zibenbot.logWarningStatic(ExceptionUtils.printStack(e));
+            CommunismBot.logWarningStatic(ExceptionUtils.printStack(e));
             return itemToPost(item);
         }
 
@@ -137,7 +137,7 @@ public class WeiboUtils {
                 .header("X-Requested-With", "XMLHttpRequest")
                 .build();
         String string = client.newCall(weiboListRequest).execute().body().string();
-        Zibenbot.logWarningStatic(string);
+        CommunismBot.logWarningStatic(string);
         JsonObject object = parser.parse(string).getAsJsonObject().getAsJsonObject("data");
         WeiboPost post = buildPostFromJsonObject(object);
         return post;

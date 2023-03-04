@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.timetask.ArknightWeiboTask;
@@ -25,8 +25,8 @@ public class ArknightWeiboFunc extends BaseFunc {
     private WeiboSet posts = null;
     private WeiboReader reader;
 
-    public ArknightWeiboFunc(Zibenbot zibenbot, WeiboReader reader) {
-        super(zibenbot);
+    public ArknightWeiboFunc(CommunismBot communismBot, WeiboReader reader) {
+        super(communismBot);
         this.reader = reader;
     }
 
@@ -77,10 +77,10 @@ public class ArknightWeiboFunc extends BaseFunc {
                     WeiboSetItem[] arrayPosts = posts.toArray(new WeiboSetItem[0]);
                     try {
                         if (arrayPosts[i].isOffAnnounce()) {
-                            zibenbot.logInfo(String.format("检测到方舟新的制作组通讯（来自官网）：%s", arrayPosts[i].getTitle()));
+                            communismBot.logInfo(String.format("检测到方舟新的制作组通讯（来自官网）：%s", arrayPosts[i].getTitle()));
                             replyMsg(s, reader.postToUser(ArknightWeiboTask.getPostFromOff(arrayPosts[i])));
                         } else {
-                            replyMsg(s, reader.postToUser(WeiboUtils.getWeiboWithPostItem(Zibenbot.getOkHttpClient(), arrayPosts[i])));
+                            replyMsg(s, reader.postToUser(WeiboUtils.getWeiboWithPostItem(CommunismBot.getOkHttpClient(), arrayPosts[i])));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -91,14 +91,14 @@ public class ArknightWeiboFunc extends BaseFunc {
     }
 
     private void setPosts() {
-        posts = WeiboUtils.getWeiboSet(Zibenbot.getOkHttpClient(), 6279793937L);
+        posts = WeiboUtils.getWeiboSet(CommunismBot.getOkHttpClient(), 6279793937L);
         try {
             WeiboSetItem item = ArknightWeiboTask.getPostUrlFromOff();
             if (item != null) {
                 posts.add(item);
             }
         } catch (Exception e) {
-            zibenbot.logWarning("读取方舟制作组通讯出错：" + ExceptionUtils.printStack(e));
+            communismBot.logWarning("读取方舟制作组通讯出错：" + ExceptionUtils.printStack(e));
         }
     }
 

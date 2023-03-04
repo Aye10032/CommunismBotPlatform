@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
 import com.aye10032.functions.funcutil.SimpleMsg;
@@ -29,8 +29,8 @@ public class HuoziyinshuaFunc extends BaseFunc {
     private Commander<SimpleMsg> commander;
     private OkHttpClient client;
 
-    public HuoziyinshuaFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public HuoziyinshuaFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
                 .start()
@@ -57,7 +57,7 @@ public class HuoziyinshuaFunc extends BaseFunc {
                                 int code = jsonObject.get("code").getAsInt();
                                 if (code == 201) {
                                     File file = new File(appDirectory + "/HuoZiYinShua/Output.wav");
-                                    zibenbot.replyAudio(msg,file);
+                                    communismBot.replyAudio(msg,file);
                                 }
                             }
                         }

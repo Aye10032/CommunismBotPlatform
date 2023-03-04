@@ -1,6 +1,6 @@
 package com.aye10032.utils.weibo;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.utils.ExceptionUtils;
 import com.aye10032.utils.HttpUtils;
 import com.aye10032.utils.timeutil.AsynTaskStatus;
@@ -21,13 +21,13 @@ import java.util.regex.Pattern;
 public class WeiboReader {
 
     private File cacheDir;
-    private Zibenbot zibenbot;
+    private CommunismBot communismBot;
     private static final Pattern pattern = Pattern.compile("\\[img:([\\w.:/\\-]+/([\\w.]+))]");
     private static Pattern img_name_pattern = Pattern.compile("\\w+.(png|jpg|gif)");
 
-    public WeiboReader(Zibenbot zibenbot, String cacheDir) {
+    public WeiboReader(CommunismBot communismBot, String cacheDir) {
         this.cacheDir = new File(cacheDir);
-        this.zibenbot = zibenbot;
+        this.communismBot = communismBot;
         if (!this.cacheDir.exists()) {
             this.cacheDir.mkdirs();
         }
@@ -43,12 +43,12 @@ public class WeiboReader {
             imgFiles.add(new File(getFileName(url)));
             runnables.add(() -> downloadImg(url));
         });
-        AsynTaskStatus status = zibenbot.pool.getAsynchronousPool().execute(
+        AsynTaskStatus status = communismBot.pool.getAsynchronousPool().execute(
                 () ->
                         imgFiles.forEach(file -> {
                             String s = des.get();
                             System.out.println(s);
-                            s = s.replace(file.getName(), zibenbot.getImg(file));
+                            s = s.replace(file.getName(), communismBot.getImg(file));
                             des.set(s);
                             System.out.println(file.getName() + des.get());
                         }),
@@ -73,14 +73,14 @@ public class WeiboReader {
             if (!outFile.exists()) {
                 tempFile.getParentFile().mkdirs();
                 tempFile.createNewFile();
-                HttpUtils.download(url, tempFile.getAbsolutePath(), Zibenbot.getOkHttpClient());
+                HttpUtils.download(url, tempFile.getAbsolutePath(), CommunismBot.getOkHttpClient());
                 tempFile.renameTo(outFile);
                 Thread.sleep(500L);
             }
         } catch (Exception e) {
             tempFile.delete();
             outFile.delete();
-            zibenbot.logWarning("微博图片下载出错：" + ExceptionUtils.printStack(e));
+            communismBot.logWarning("微博图片下载出错：" + ExceptionUtils.printStack(e));
             return null;
         }
         return outFile;

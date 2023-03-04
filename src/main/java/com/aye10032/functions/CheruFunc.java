@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
 import com.aye10032.functions.funcutil.SimpleMsg;
@@ -15,8 +15,8 @@ public class CheruFunc extends BaseFunc {
     private CheruUtil cheruUtil;
     private Commander<SimpleMsg> commander;
 
-    public CheruFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public CheruFunc(CommunismBot communismBot) {
+        super(communismBot);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CheruFunc extends BaseFunc {
                 } catch (Exception e) {
                     reply = e.toString();
                 }
-                zibenbot.replyMsg(msg, reply);
+                communismBot.replyMsg(msg, reply);
             })
             .pop()
             .or(".切噜～"::equals)
@@ -48,7 +48,7 @@ public class CheruFunc extends BaseFunc {
                 } catch (Exception e) {
                     reply = e.toString();
                 }
-                zibenbot.replyMsg(msg, reply);
+                communismBot.replyMsg(msg, reply);
             })
             .pop()
             .build();

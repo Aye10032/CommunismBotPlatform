@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
 import com.aye10032.functions.funcutil.SimpleMsg;
@@ -13,18 +13,18 @@ public class MessageInformFunc extends BaseFunc {
 
     private Commander<SimpleMsg> commander;
 
-    public MessageInformFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public MessageInformFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
                 .start()
                 .or(this::containsMe)
                 .run((msg) -> {
                     if (msg.getFromClient() != 2375985957L && msg.getFromClient() != 2155231604L) {
-                        String text = "来自群【" + zibenbot.getGroupName(msg.getFromGroup()) + "】的消息\n" +
-                                zibenbot.getUserName(msg.getFromClient()) + "[" + msg.getFromClient() + "]：" +
+                        String text = "来自群【" + communismBot.getGroupName(msg.getFromGroup()) + "】的消息\n" +
+                                communismBot.getUserName(msg.getFromClient()) + "[" + msg.getFromClient() + "]：" +
                                 msg.getMsg();
-                        zibenbot.toPrivateMsg(2375985957L, text);
+                        communismBot.toPrivateMsg(2375985957L, text);
                     }
                 })
                 .build();

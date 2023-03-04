@@ -1,6 +1,6 @@
 package com.aye10032.timetask;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.*;
 import com.aye10032.utils.timeutil.Reciver;
@@ -35,7 +35,7 @@ public class DragraliaTask extends SubscribableBase {
     public Config config;
     public ConfigLoader<Config> loader;
     Gson gson = new Gson();
-    OkHttpClient client = Zibenbot.getOkHttpClient();
+    OkHttpClient client = CommunismBot.getOkHttpClient();
     private JsonParser jsonParser = new JsonParser();
 
     @PostConstruct
@@ -51,7 +51,7 @@ public class DragraliaTask extends SubscribableBase {
 
     @Override
     public void run(List<Reciver> recivers, String[] args) {
-        client = client.newBuilder().proxy(Zibenbot.getProxy()).build();
+        client = client.newBuilder().proxy(CommunismBot.getProxy()).build();
         try {
             ArticleUpdateDate date = null;
             try {

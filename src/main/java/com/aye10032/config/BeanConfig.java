@@ -1,6 +1,6 @@
 package com.aye10032.config;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.timetask.SimpleSubscription;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfig {
 
     @Bean("maiyao")
-    public SimpleSubscription maiyao(Zibenbot zibenbot) {
+    public SimpleSubscription maiyao(CommunismBot communismBot) {
         return new SimpleSubscription("0 0 0,6,12,18 * * ? ",
-            zibenbot.getImg(zibenbot.appDirectory + "/image/提醒买药小助手.jpg")) {
+            communismBot.getImg(communismBot.appDirectory + "/image/提醒买药小助手.jpg")) {
             private final static String NAME = "提醒买药小助手";
 
             @Override
@@ -22,10 +22,10 @@ public class BeanConfig {
     }
 
     @Bean("tigangSub")
-    public SimpleSubscription tigang(Zibenbot zibenbot) {
+    public SimpleSubscription tigang(CommunismBot communismBot) {
         return new SimpleSubscription(
             "0 0 19 * * ? ",
-            zibenbot.getImg(zibenbot.appDirectory + "/tigang.jpg")) {
+            communismBot.getImg(communismBot.appDirectory + "/tigang.jpg")) {
             @Override
             public String getName() {
                 return "提肛小助手";

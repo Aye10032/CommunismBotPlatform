@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
 import com.aye10032.functions.funcutil.SimpleMsg;
@@ -15,22 +15,22 @@ public class INMFunc extends BaseFunc {
 
     private Commander<SimpleMsg> commander;
 
-    public INMFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public INMFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
             .seteHandler(FuncExceptionHandler.INSTENCE)
             .start()
             .or("目力"::contains)
             .run((msg)->{
-                zibenbot.replyAudio(msg, new File(appDirectory + "/inm/目力.amr"));
+                communismBot.replyAudio(msg, new File(appDirectory + "/inm/目力.amr"));
             })
             .or(this::containsYarimasune)
             .run((msg)->{
-                zibenbot.replyAudio(msg, new File(appDirectory + "/inm/压力马斯内.amr"));
+                communismBot.replyAudio(msg, new File(appDirectory + "/inm/压力马斯内.amr"));
             })
             .or(this::containsSodayo)
             .run((msg)->{
-                zibenbot.replyAudio(msg, new File(appDirectory + "/inm/sodayo.amr"));
+                communismBot.replyAudio(msg, new File(appDirectory + "/inm/sodayo.amr"));
             })
             .build();
     }

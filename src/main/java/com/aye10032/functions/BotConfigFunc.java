@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.Config;
@@ -25,12 +25,12 @@ public class BotConfigFunc extends BaseFunc {
         return this.config.getWithDafault(key, dafule);
     }
 
-    public BotConfigFunc(Zibenbot zibenbot) {
-        super(zibenbot);
-        if (zibenbot == null) {
+    public BotConfigFunc(CommunismBot communismBot) {
+        super(communismBot);
+        if (communismBot == null) {
             configFile = "res/bot_config.json";
         } else {
-            configFile = zibenbot.appDirectory + "/bot_config.json";
+            configFile = communismBot.appDirectory + "/bot_config.json";
         }
         loader = new ConfigLoader<>(configFile, Config.class);
 

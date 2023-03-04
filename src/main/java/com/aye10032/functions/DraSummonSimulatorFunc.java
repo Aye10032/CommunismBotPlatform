@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.*;
@@ -35,12 +35,12 @@ public class DraSummonSimulatorFunc extends BaseFunc {
     Config user_config = user_loader.load();
     Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls().create();
     JsonParser parser = new JsonParser();
-    OkHttpClient client = Zibenbot.getOkHttpClient();
+    OkHttpClient client = CommunismBot.getOkHttpClient();
     Set<SummonEle> all_ele = new HashSet<>();
     Map<Long, UserDate> userDates = new HashMap<>();
 
-    public DraSummonSimulatorFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public DraSummonSimulatorFunc(CommunismBot communismBot) {
+        super(communismBot);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class DraSummonSimulatorFunc extends BaseFunc {
                 update();
             }
         }.setTiggerTime(date).setCycle(NEXT_HOUR);
-        zibenbot.pool.add(task);
+        communismBot.pool.add(task);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class DraSummonSimulatorFunc extends BaseFunc {
                 } else if (strings[1].endsWith("连")) {
                     UserDate date = getUser(simpleMsg.getFromClient());
                     if (date.todayCount > 2 && simpleMsg.isGroupMsg()) {
-                        replyMsg(simpleMsg, zibenbot.at(simpleMsg.getFromClient()) +
+                        replyMsg(simpleMsg, communismBot.at(simpleMsg.getFromClient()) +
                                 "今天的抽卡次数已经用完，请明天或者私聊抽卡。");
                     } else {
                         int x = 0;
@@ -169,7 +169,7 @@ public class DraSummonSimulatorFunc extends BaseFunc {
                 } else if ("单抽".equals(strings[1])) {
                     UserDate date = getUser(simpleMsg.getFromClient());
                     if (date.todayCount > 2 && simpleMsg.isGroupMsg()) {
-                        replyMsg(simpleMsg, zibenbot.at(simpleMsg.getFromClient()) +
+                        replyMsg(simpleMsg, communismBot.at(simpleMsg.getFromClient()) +
                                 "今天的抽卡次数已经用完，请明天或者私聊抽卡。");
                     } else {
                         StringBuilder builder = new StringBuilder();
@@ -269,7 +269,7 @@ public class DraSummonSimulatorFunc extends BaseFunc {
     }
 
     private String at(SimpleMsg simpleMsg) {
-        return zibenbot.at(simpleMsg.getFromClient());
+        return communismBot.at(simpleMsg.getFromClient());
     }
 
     public void save() {
@@ -281,7 +281,7 @@ public class DraSummonSimulatorFunc extends BaseFunc {
 
     public void update() {
         long current = System.currentTimeMillis();
-        zibenbot.logInfo("DraSummonSimulator setup start");
+        communismBot.logInfo("DraSummonSimulator setup start");
         JsonArray object = null;
         JsonArray charArray = null;
         JsonArray draArray = null;
@@ -315,7 +315,7 @@ public class DraSummonSimulatorFunc extends BaseFunc {
                     break;
                 }
             }
-            zibenbot.logInfo("根数据读取完成：耗时：" + ((float) (current =
+            communismBot.logInfo("根数据读取完成：耗时：" + ((float) (current =
                     ((System.currentTimeMillis() - current) / 1000))) + "秒");
             charArray =
                     parser.parse(cleanMsg(HttpUtils.getStringFromNet(charUrl, client))).getAsJsonArray();
@@ -326,7 +326,7 @@ public class DraSummonSimulatorFunc extends BaseFunc {
             summArray =
                     parser.parse(StringEscapeUtils.unescapeHtml4(HttpUtils.getStringFromNet(summonEventUrl, client))).getAsJsonArray();
 
-            zibenbot.logInfo("常规数据读取完成：耗时：" + ((float) (current =
+            communismBot.logInfo("常规数据读取完成：耗时：" + ((float) (current =
                     ((System.currentTimeMillis() - current) / 1000))) + "秒");
             all_ele.clear();
             all_summon_event.clear();
@@ -345,11 +345,11 @@ public class DraSummonSimulatorFunc extends BaseFunc {
 
 
 
-            zibenbot.logInfo("数据解析完成：耗时：" + ((float) (current =
+            communismBot.logInfo("数据解析完成：耗时：" + ((float) (current =
                     ((System.currentTimeMillis() - current) / 1000))) + "秒");
-            zibenbot.logInfo("DraSummonSimulator setup successful!");
+            communismBot.logInfo("DraSummonSimulator setup successful!");
         } catch (Exception e) {
-            zibenbot.logWarning("根数据网络读取异常，转为本地缓存\n" + "e:" + ExceptionUtils.printStack(e));
+            communismBot.logWarning("根数据网络读取异常，转为本地缓存\n" + "e:" + ExceptionUtils.printStack(e));
             all_ele.clear();
             all_summon_event.clear();
             Config config = summon_loader.load();
@@ -371,7 +371,7 @@ public class DraSummonSimulatorFunc extends BaseFunc {
             }.getType());
             all_summon_event.forEach(event -> event.setup(all_ele));
 
-            zibenbot.logInfo("本地缓存读取完成。");
+            communismBot.logInfo("本地缓存读取完成。");
         }
         updateUserDate();
         save();

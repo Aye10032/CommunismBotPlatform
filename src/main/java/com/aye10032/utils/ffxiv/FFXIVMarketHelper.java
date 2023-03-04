@@ -1,6 +1,6 @@
 package com.aye10032.utils.ffxiv;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.foundation.BusinessException;
 import com.aye10032.foundation.BusinessExceptionEnum;
 import com.aye10032.utils.ffxiv.entity.FFXIVSimpleInfo;
@@ -153,7 +153,7 @@ public class FFXIVMarketHelper {
     }
 
     public static void main(String[] args) {
-        FFXIVMarketHelper ffxivMarketHelper = new FFXIVMarketHelper(Zibenbot.getOkHttpClient(), "陆行鸟");
+        FFXIVMarketHelper ffxivMarketHelper = new FFXIVMarketHelper(CommunismBot.getOkHttpClient(), "陆行鸟");
         Collection<FFXIVSimpleInfo> ffxivItems = ffxivMarketHelper.searchItemWithId("14083");
         Map<String, String> nameIdMap = ffxivMarketHelper.searchItemWithName("桦木");
         nameIdMap.forEach((name, id) -> {

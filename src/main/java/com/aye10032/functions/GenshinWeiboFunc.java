@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.timetask.ArknightWeiboTask;
@@ -24,8 +24,8 @@ public class GenshinWeiboFunc extends BaseFunc {
     private WeiboSet posts = null;
     private WeiboReader reader;
 
-    public GenshinWeiboFunc(Zibenbot zibenbot, WeiboReader reader) {
-        super(zibenbot);
+    public GenshinWeiboFunc(CommunismBot communismBot, WeiboReader reader) {
+        super(communismBot);
         this.reader = reader;
     }
 
@@ -76,10 +76,10 @@ public class GenshinWeiboFunc extends BaseFunc {
                     WeiboSetItem[] arrayPosts = posts.toArray(new WeiboSetItem[0]);
                     try {
                         if (arrayPosts[i].isOffAnnounce()) {
-                            zibenbot.logInfo(String.format("检测到原神微博更新（来自官网）：%s", arrayPosts[i].getTitle()));
+                            communismBot.logInfo(String.format("检测到原神微博更新（来自官网）：%s", arrayPosts[i].getTitle()));
                             replyMsg(s, reader.postToUser(ArknightWeiboTask.getPostFromOff(arrayPosts[i])));
                         } else {
-                            replyMsg(s, reader.postToUser(WeiboUtils.getWeiboWithPostItem(Zibenbot.getOkHttpClient(), arrayPosts[i])));
+                            replyMsg(s, reader.postToUser(WeiboUtils.getWeiboWithPostItem(CommunismBot.getOkHttpClient(), arrayPosts[i])));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -90,7 +90,7 @@ public class GenshinWeiboFunc extends BaseFunc {
     }
 
     private void setPosts() {
-        posts = WeiboUtils.getWeiboSet(Zibenbot.getOkHttpClient(), 6593199887L);
+        posts = WeiboUtils.getWeiboSet(CommunismBot.getOkHttpClient(), 6593199887L);
     }
 
     @Override

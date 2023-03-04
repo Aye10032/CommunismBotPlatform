@@ -1,11 +1,10 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.RandomUtil;
-import com.aye10032.utils.SetuUtil;
 import com.dazo66.command.Commander;
 import com.dazo66.command.CommanderBuilder;
 import org.springframework.stereotype.Service;
@@ -21,8 +20,8 @@ public class PixivFunc extends BaseFunc {
     private RandomUtil randomUtil;
     private List<String> index_list;
 
-    public PixivFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public PixivFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
                 .start()
@@ -30,8 +29,8 @@ public class PixivFunc extends BaseFunc {
                 .run((msg) -> {
                     updateIndexList(appDirectory + "/setu/today.txt");
                     int initial_size = index_list.size();
-                    zibenbot.logInfo("获取到" + initial_size +"条索引路径");
-                    zibenbot.replyMsg(msg, zibenbot.getImg(getRandomImage()));
+                    communismBot.logInfo("获取到" + initial_size +"条索引路径");
+                    communismBot.replyMsg(msg, communismBot.getImg(getRandomImage()));
                     if (initial_size != index_list.size()) {
                         saveIndexList(appDirectory + "/setu/today.txt");
                     }
@@ -41,7 +40,7 @@ public class PixivFunc extends BaseFunc {
                 .run((msg)->{
                     updateIndexList(appDirectory + "/setu/mulu.txt");
                     int initial_size = index_list.size();
-                    zibenbot.replyMsg(msg, zibenbot.getImg(getRandomImage()));
+                    communismBot.replyMsg(msg, communismBot.getImg(getRandomImage()));
                     if (initial_size != index_list.size()) {
                         saveIndexList(appDirectory + "/setu/mulu.txt");
                     }
@@ -64,12 +63,12 @@ public class PixivFunc extends BaseFunc {
     private File getRandomImage() {
         int index = randomUtil.getRandomIndex(index_list.size());
         String image_path = "/home/aye/my-data/pixiv_image/" + index_list.get(index);
-        zibenbot.logInfo("获取到路径："+image_path);
+        communismBot.logInfo("获取到路径："+image_path);
         File image = new File(image_path);
         if (image.exists()) {
             return image;
         } else {
-            zibenbot.logWarning("图片不存在，尝试新的路径");
+            communismBot.logWarning("图片不存在，尝试新的路径");
             index_list.remove(index);
             return getRandomImage();
         }

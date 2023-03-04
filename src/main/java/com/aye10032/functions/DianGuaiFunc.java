@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.data.MHWData;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.FuncExceptionHandler;
@@ -23,8 +23,8 @@ public class DianGuaiFunc extends BaseFunc {
     private RandomUtil randomUtil;
     private Commander<SimpleMsg> commander;
 
-    public DianGuaiFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public DianGuaiFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
                 .start()
@@ -32,20 +32,20 @@ public class DianGuaiFunc extends BaseFunc {
                 .run((cqmsg) -> {
                     String result = "用" + randomUtil.getRandom(mhwData.getArm()) +
                             "打" + randomUtil.getRandom(mhwData.getMonster());
-                    zibenbot.replyMsg(cqmsg, result);
+                    communismBot.replyMsg(cqmsg, result);
                 })
                 .or(".MHWI"::equalsIgnoreCase)
                 .run((cqmsg) -> {
                     String[] total_list = ArrayUtils.concatAll(mhwData.getMonster(), mhwData.getMonster_ice());
                     String result = "用" + randomUtil.getRandom(mhwData.getArm()) +
                             "打" + randomUtil.getRandom(total_list);
-                    zibenbot.replyMsg(cqmsg, result);
+                    communismBot.replyMsg(cqmsg, result);
                 })
                 .or(".MHR"::equalsIgnoreCase)
                 .run((cqmsg) -> {
                     String result = "用" + randomUtil.getRandom(mhwData.getArm()) +
                             "打" + randomUtil.getRandom(mhwData.getMonster_rise());
-                    zibenbot.replyMsg(cqmsg, result);
+                    communismBot.replyMsg(cqmsg, result);
                 })
                 .or(".MHRSB"::equalsIgnoreCase)
                 .run((cqmsg) -> {
@@ -55,7 +55,7 @@ public class DianGuaiFunc extends BaseFunc {
                     String _fore = flag ? "" : "怪异化的";
                     String result = "用" + randomUtil.getRandom(mhwData.getArm()) +
                             "打" + _fore + randomUtil.getRandom(total_list);
-                    zibenbot.replyMsg(cqmsg, result);
+                    communismBot.replyMsg(cqmsg, result);
                 })
                 .build();
     }

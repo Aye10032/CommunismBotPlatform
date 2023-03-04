@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.aye10032.utils.ExceptionUtils;
@@ -28,8 +28,8 @@ public class QueueFunc extends BaseFunc {
     private Map<Long, List<QueueDataClass>> data;
     private Commander<SimpleMsg> commander;
 
-    public QueueFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public QueueFunc(CommunismBot communismBot) {
+        super(communismBot);
         commander = new CommanderBuilder<SimpleMsg>()
             .start()
             .or("队列"::equals)
@@ -42,7 +42,7 @@ public class QueueFunc extends BaseFunc {
                     builder.append("\n\t 无");
                 } else {
                     queueList.forEach(d ->
-                        builder.append(String.format("\n\t%s    %s", d.getData(), zibenbot.getUserName(d.getSendId())))
+                        builder.append(String.format("\n\t%s    %s", d.getData(), communismBot.getUserName(d.getSendId())))
                     );
                 }
                 replyMsg(s, builder.toString());
@@ -63,7 +63,7 @@ public class QueueFunc extends BaseFunc {
                 if (q == null) {
                     replyMsg(s, "当前队列为空 ");
                 } else {
-                    replyMsg(s, String.format("出队内容：%s， %s", q.getData(), zibenbot.at(q.getSendId())));
+                    replyMsg(s, String.format("出队内容：%s， %s", q.getData(), communismBot.at(q.getSendId())));
                 }
                 save();
             })
@@ -102,7 +102,7 @@ public class QueueFunc extends BaseFunc {
     public void load(){
         Gson gson = new GsonBuilder().create();
         try {
-            File file = new File(zibenbot.appDirectory + "/queue.json");
+            File file = new File(communismBot.appDirectory + "/queue.json");
             if (file.exists()) {
                 FileReader input = new FileReader(file);
                 data = gson.fromJson(IOUtils.toString(input)
@@ -118,14 +118,14 @@ public class QueueFunc extends BaseFunc {
                 save();
             }
         } catch (IOException e) {
-            zibenbot.logWarning("读取队列数据异常" + ExceptionUtils.printStack(e));
+            communismBot.logWarning("读取队列数据异常" + ExceptionUtils.printStack(e));
         }
     }
 
     public void save(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
-            File file = new File(zibenbot.appDirectory + "\\queue.json");
+            File file = new File(communismBot.appDirectory + "\\queue.json");
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -135,7 +135,7 @@ public class QueueFunc extends BaseFunc {
             output.flush();
             output.close();
         } catch (IOException e) {
-            zibenbot.logWarning("写入队列数据异常" + ExceptionUtils.printStack(e));
+            communismBot.logWarning("写入队列数据异常" + ExceptionUtils.printStack(e));
         }
     }
 

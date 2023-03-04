@@ -1,22 +1,13 @@
 package com.aye10032.functions;
 
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.functions.funcutil.BaseFunc;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.dazo66.command.Commander;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.*;
 
 
@@ -28,8 +19,8 @@ public class LuXunFunc extends BaseFunc {
     private Commander<SimpleMsg> commander;
     Map<Integer, String> ImgMap = new HashMap<>();
 
-    public LuXunFunc(Zibenbot zibenbot) {
-        super(zibenbot);
+    public LuXunFunc(CommunismBot communismBot) {
+        super(communismBot);
         new File(appDirectory + "/image/biaoqing/output").mkdirs();
     }
 

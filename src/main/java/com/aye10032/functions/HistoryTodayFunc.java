@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.data.HistoryEventType;
 import com.aye10032.data.historytoday.entity.HistoryToday;
 import com.aye10032.data.historytoday.service.HistoryTodayService;
@@ -9,7 +9,6 @@ import com.aye10032.functions.funcutil.FuncExceptionHandler;
 import com.aye10032.functions.funcutil.SimpleMsg;
 import com.dazo66.command.Commander;
 import com.dazo66.command.CommanderBuilder;
-import kotlinx.serialization.descriptors.PrimitiveKind;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -30,8 +29,8 @@ public class HistoryTodayFunc extends BaseFunc {
 
     private Commander<SimpleMsg> commander;
 
-    public HistoryTodayFunc(Zibenbot zibenbot, HistoryTodayService historyTodayService) {
-        super(zibenbot);
+    public HistoryTodayFunc(CommunismBot communismBot, HistoryTodayService historyTodayService) {
+        super(communismBot);
         this.historyTodayService = historyTodayService;
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
@@ -62,7 +61,7 @@ public class HistoryTodayFunc extends BaseFunc {
                         List<HistoryToday> group_history_list = historyTodayService.getGroupHistory(getDate(), msg.getFromGroup());
                         event_count += group_history_list.size();
                         if (event_count == 0) {
-                            zibenbot.replyMsg(msg, "历史上的今天无事发生");
+                            communismBot.replyMsg(msg, "历史上的今天无事发生");
                         } else {
                             if (group_history_list.size() != 0) {
                                 if (history_today_list.size() != 0) {
@@ -79,13 +78,13 @@ public class HistoryTodayFunc extends BaseFunc {
                                             .append("\n");
                                 }
                             }
-                            zibenbot.replyMsg(msg, builder.toString());
+                            communismBot.replyMsg(msg, builder.toString());
                         }
                     }else {
                         if (event_count==0){
-                            zibenbot.replyMsg(msg, "历史上的今天无事发生");
+                            communismBot.replyMsg(msg, "历史上的今天无事发生");
                         }else {
-                            zibenbot.replyMsg(msg, builder.toString());
+                            communismBot.replyMsg(msg, builder.toString());
                         }
                     }
                 })
@@ -96,24 +95,24 @@ public class HistoryTodayFunc extends BaseFunc {
                         String[] msgs = msg.getCommandPieces();
                         if (msgs.length == 2) {
                             historyTodayService.insertHistory(msgs[1], "", getDate());
-                            zibenbot.replyMsg(msg, "done");
+                            communismBot.replyMsg(msg, "done");
                         } else if (msgs.length == 3) {
                             historyTodayService.insertHistory(msgs[1], msgs[2], getDate());
-                            zibenbot.replyMsg(msg, "done");
+                            communismBot.replyMsg(msg, "done");
                         } else {
-                            zibenbot.replyMsg(msg, "格式不正确！");
+                            communismBot.replyMsg(msg, "格式不正确！");
                         }
                     } else if (msg.isGroupMsg()) {
                         String[] msgs = msg.getCommandPieces();
                         if (msgs.length == 2) {
                             historyTodayService.insertHistory(msgs[1], getYear(), getDate(), msg.getFromGroup());
-                            zibenbot.replyMsg(msg, "done");
-                            zibenbot.toPrivateMsg(2375985957L, msg.getFromClient() + "添加了一条历史：" + msgs[1]);
+                            communismBot.replyMsg(msg, "done");
+                            communismBot.toPrivateMsg(2375985957L, msg.getFromClient() + "添加了一条历史：" + msgs[1]);
                         } else {
-                            zibenbot.replyMsg(msg, "格式不正确！");
+                            communismBot.replyMsg(msg, "格式不正确！");
                         }
                     } else {
-                        zibenbot.replyMsg(msg, "no access!");
+                        communismBot.replyMsg(msg, "no access!");
                     }
                 })
                 .pop()
@@ -125,24 +124,24 @@ public class HistoryTodayFunc extends BaseFunc {
                         String[] msgs = msg.getCommandPieces();
                         if (msgs.length == 2) {
                             historyTodayService.insertHistory(msgs[1], "", getTomorrow());
-                            zibenbot.replyMsg(msg, "done");
+                            communismBot.replyMsg(msg, "done");
                         } else if (msgs.length == 3) {
                             historyTodayService.insertHistory(msgs[1], msgs[2], getTomorrow());
-                            zibenbot.replyMsg(msg, "done");
+                            communismBot.replyMsg(msg, "done");
                         } else {
-                            zibenbot.replyMsg(msg, "格式不正确！");
+                            communismBot.replyMsg(msg, "格式不正确！");
                         }
                     } else if (msg.isGroupMsg()) {
                         String[] msgs = msg.getCommandPieces();
                         if (msgs.length == 2) {
                             historyTodayService.insertHistory(msgs[1], getYear(), getTomorrow(), msg.getFromGroup());
-                            zibenbot.replyMsg(msg, "done");
-                            zibenbot.toPrivateMsg(2375985957L, msg.getFromClient() + "添加了一条历史：" + msgs[1]);
+                            communismBot.replyMsg(msg, "done");
+                            communismBot.toPrivateMsg(2375985957L, msg.getFromClient() + "添加了一条历史：" + msgs[1]);
                         } else {
-                            zibenbot.replyMsg(msg, "格式不正确！");
+                            communismBot.replyMsg(msg, "格式不正确！");
                         }
                     } else {
-                        zibenbot.replyMsg(msg, "no access!");
+                        communismBot.replyMsg(msg, "no access!");
                     }
                 })
                 .pop()
@@ -154,12 +153,12 @@ public class HistoryTodayFunc extends BaseFunc {
                     if (msg.isGroupMsg() && msgs.length == 2) {
                         HistoryToday history = historyTodayService.selectHistory(msgs[1], getDate(), msg.getFromGroup());
                         if (history == null){
-                            zibenbot.replyMsg(msg, "不存在这条历史");
+                            communismBot.replyMsg(msg, "不存在这条历史");
                         }else if (history.getEventType().equals(HistoryEventType.HISTORY)){
-                            zibenbot.replyMsg(msg, "因果不够，无法抹除这条历史");
+                            communismBot.replyMsg(msg, "因果不够，无法抹除这条历史");
                         }else {
                             historyTodayService.deleteHistory(history.getHistory(), history.getEventDate());
-                            zibenbot.replyMsg(msg, zibenbot.at(msg.getFromClient())+" 发动了岁月史书，抹去了一条历史");
+                            communismBot.replyMsg(msg, communismBot.at(msg.getFromClient())+" 发动了岁月史书，抹去了一条历史");
                         }
                     }
                 })

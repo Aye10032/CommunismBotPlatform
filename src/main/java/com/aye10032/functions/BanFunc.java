@@ -1,6 +1,6 @@
 package com.aye10032.functions;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.data.banrecord.entity.BanRecord;
 import com.aye10032.data.banrecord.entity.KillRecord;
 import com.aye10032.data.banrecord.service.BanRecordService;
@@ -26,32 +26,32 @@ public class BanFunc extends BaseFunc {
     private BanRecordService banRecordService;
     private KillRecordService killRecordService;
 
-    public BanFunc(Zibenbot zibenbot, BanRecordService banRecordService, KillRecordService killRecordService) {
-        super(zibenbot);
+    public BanFunc(CommunismBot communismBot, BanRecordService banRecordService, KillRecordService killRecordService) {
+        super(communismBot);
         this.banRecordService = banRecordService;
         this.killRecordService = killRecordService;
         commander = new CommanderBuilder<SimpleMsg>()
                 .seteHandler(FuncExceptionHandler.INSTENCE)
-                .start(SimpleMsg::isGroupMsg, simpleMsg -> zibenbot.replyMsg(simpleMsg, "对不起，此功能未对私聊或teamspeak开放。"))
+                .start(SimpleMsg::isGroupMsg, simpleMsg -> communismBot.replyMsg(simpleMsg, "对不起，此功能未对私聊或teamspeak开放。"))
                 .or(".肃静"::equals)
                 .run((msg) -> {
-                    zibenbot.setMuteAll(msg.getFromGroup(), true);
+                    communismBot.setMuteAll(msg.getFromGroup(), true);
                 })
                 .or(".大赦"::equals)
                 .run((msg) -> done(msg.getFromGroup()))
                 .or(".禁言"::equals)
                 .next()
-                .or(s -> zibenbot.getAtMember(s) != -1)
+                .or(s -> communismBot.getAtMember(s) != -1)
                 .next()
                 .or(NumberUtils::isDigits)
                 .run((msg) -> {
                     String[] strings = msg.getCommandPieces();
-                    long banId = zibenbot.getAtMember(msg.getMsg());
+                    long banId = communismBot.getAtMember(msg.getMsg());
                     try {
                         if (banId == 2375985957L) {
-                            zibenbot.replyMsg(msg, "对不起，做不到。");
+                            communismBot.replyMsg(msg, "对不起，做不到。");
                             if (msg.getFromClient() != 2375985957L) {
-                                zibenbot.muteMember(msg.getFromGroup(),
+                                communismBot.muteMember(msg.getFromGroup(),
                                         msg.getFromClient(), Integer.parseInt(strings[2]));
 
                                 banRecordService.updateBanRecord(msg.getFromClient(), msg.getFromGroup(), Integer.parseInt(strings[2]));
@@ -65,7 +65,7 @@ public class BanFunc extends BaseFunc {
                             banRecord.getGroupObject(cqmsg.getFromGroup()).addMemebrBanedTime(cqmsg.getFromClient(), banId);
                         } */
                         else {
-                            zibenbot.muteMember(msg.getFromGroup(), banId, Integer.parseInt(strings[2]));
+                            communismBot.muteMember(msg.getFromGroup(), banId, Integer.parseInt(strings[2]));
 
                             banRecordService.updateBanRecord(banId, msg.getFromGroup(), Integer.parseInt(strings[2]));
                             killRecordService.addKillRecord(msg.getFromClient(), msg.getFromGroup(), KILLER);
@@ -81,30 +81,30 @@ public class BanFunc extends BaseFunc {
                 .run((msg) -> {
                     List<KillRecord> records = killRecordService.selectKillRecordByGroup(msg.getFromGroup(), KILLER);
                     if (records.isEmpty()){
-                        zibenbot.replyMsg(msg,"本群目前暂无击杀榜");
+                        communismBot.replyMsg(msg,"本群目前暂无击杀榜");
                     }else {
                         StringBuilder builder = new StringBuilder();
                         builder.append("击杀榜：\n---------------------\n");
                         for (KillRecord record:records){
-                            builder.append(zibenbot.at(record.getQqId())).append("   ")
+                            builder.append(communismBot.at(record.getQqId())).append("   ")
                                     .append(record.getKillTimes()).append("次\n");
                         }
-                        zibenbot.replyMsg(msg, builder.toString());
+                        communismBot.replyMsg(msg, builder.toString());
                     }
                 })
                 .or(".口球榜"::equals)
                 .run((msg)->{
                     List<KillRecord> records = killRecordService.selectKillRecordByGroup(msg.getFromGroup(), VICTIM);
                     if (records.isEmpty()){
-                        zibenbot.replyMsg(msg,"本群目前暂无口球榜");
+                        communismBot.replyMsg(msg,"本群目前暂无口球榜");
                     }else {
                         StringBuilder builder = new StringBuilder();
                         builder.append("口球榜：\n---------------------\n");
                         for (KillRecord record:records){
-                            builder.append(zibenbot.at(record.getQqId())).append("   ")
+                            builder.append(communismBot.at(record.getQqId())).append("   ")
                                     .append(record.getKilledTimes()).append("次\n");
                         }
-                        zibenbot.replyMsg(msg, builder.toString());
+                        communismBot.replyMsg(msg, builder.toString());
                     }
                 })
                 .build();
@@ -123,7 +123,7 @@ public class BanFunc extends BaseFunc {
         for (BanRecord record:banList){
             if (!isFree(record.getLastBanDate(), record.getBanTime())){
                 isEmpty = false;
-                zibenbot.unMute(record.getFromGroup(), record.getQqId());
+                communismBot.unMute(record.getFromGroup(), record.getQqId());
             }
             record.setStatus(FREE);
             banRecordService.updateBanRecord(record);
@@ -142,7 +142,7 @@ public class BanFunc extends BaseFunc {
         } else if (fromGroup == 792666782L) {
             msg += "------《史记 卞高祖本纪》";
         }
-        zibenbot.toGroupMsg(fromGroup, msg);
+        communismBot.toGroupMsg(fromGroup, msg);
 
     }
 

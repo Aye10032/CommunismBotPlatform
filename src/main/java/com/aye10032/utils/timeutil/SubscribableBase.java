@@ -1,6 +1,6 @@
 package com.aye10032.utils.timeutil;
 
-import com.aye10032.Zibenbot;
+import com.aye10032.CommunismBot;
 import com.aye10032.entity.SubTask;
 import com.aye10032.entity.SubTaskExample;
 import com.aye10032.functions.funcutil.MsgType;
@@ -31,11 +31,11 @@ import java.util.stream.Collectors;
 public abstract class SubscribableBase extends QuartzJobBean {
 
     private SubTaskMapper subTaskMapper;
-    private Zibenbot bot;
+    private CommunismBot bot;
     private static SimpleTimeLimiter timeLimiter = SimpleTimeLimiter.create(new ThreadPoolExecutor(10, 200, 10, TimeUnit.MINUTES, new ArrayBlockingQueue<>(10)));
 
     @Autowired
-    public void setBot(Zibenbot bot) {
+    public void setBot(CommunismBot bot) {
         this.bot = bot;
     }
 
@@ -44,7 +44,7 @@ public abstract class SubscribableBase extends QuartzJobBean {
         this.subTaskMapper = subTaskMapper;
     }
 
-    public Zibenbot getBot() {
+    public CommunismBot getBot() {
         return bot;
     }
 
