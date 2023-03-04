@@ -1,7 +1,6 @@
 package com.dazo66;
 
 import com.aye10032.CommunismBot;
-import com.aye10032.data.ffxiv.service.FFXIVService;
 import com.dazo66.entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +16,6 @@ public class MessageController {
     @Autowired
     private CommunismBot communismBot;
 
-    @Autowired
-    private FFXIVService service;
-
     @RequestMapping(value = "send", method = {RequestMethod.POST, RequestMethod.GET})
     public Result<?> sendMessage(Long group, String msg) {
         if (group != null) {
@@ -28,17 +24,6 @@ public class MessageController {
             return Result.success("success");
         } else {
             return new Result<>("400", "群号不可为空", "");
-        }
-    }
-
-    @RequestMapping(value = "house", method = RequestMethod.POST)
-    public Result<?> updateHouse(String name) {
-        if (name != null) {
-            service.updateHouse(name);
-            communismBot.logInfo("更新了" + name + "的房屋信息");
-            return Result.success("success");
-        } else {
-            return new Result<>("400", "id不可为空", "");
         }
     }
 

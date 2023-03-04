@@ -8,7 +8,6 @@ import com.aye10032.mapper.SubTaskMapper;
 import com.aye10032.utils.*;
 import com.aye10032.utils.timeutil.TimeTaskPool;
 import com.aye10032.utils.timeutil.TimeUtils;
-import com.aye10032.utils.weibo.WeiboReader;
 import com.dazo66.config.BotConfig;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -69,7 +68,6 @@ public class CommunismBot implements ApplicationContextAware {
      * 时间任务池
      */
     public TimeTaskPool pool;
-    public WeiboReader weiboReader;
     public List<Long> enableGroup = new ArrayList<>();
     public String appDirectory;
     final Map<String, IMsgUpload> msgUploads = new HashMap<>();
@@ -79,7 +77,7 @@ public class CommunismBot implements ApplicationContextAware {
 
     public static OkHttpClient getOkHttpClient() {
         return client.newBuilder().callTimeout(30, TimeUnit.SECONDS).build();
-//                .proxy(Zibenbot.getProxy()).build();
+//                .proxy(communismBot.getProxy()).build();
     }
 
     {
@@ -158,54 +156,13 @@ public class CommunismBot implements ApplicationContextAware {
         enableGroup.add(609372702L); //部队群
     }
 
-    @Bean
-    public WeiboReader buildWeiboReader() {
-        return new WeiboReader(this, this.appDirectory + "/weiboCache/");
-    }
 
     @Autowired
     private SubTaskMapper subTaskMapper;
 
     @PostConstruct
     public int startup() {
-        // bot.getLogger().plus(logger);
-        // 设置基本参数
-        SeleniumUtils.setup(appDirectory + "/ChromeDriver/chromedriver.exe");
-        //改成了手动注册
         log(Level.INFO, "registe func start");
-        this.weiboReader = new WeiboReader(this, appDirectory + "/weiboCache/");
-/*        FuncLoader loader = new FuncLoader(this);
-        loader.addFactory(new SubscriptFunc.SubscriptFuncFactory(this, subTaskMapper));
-        loader.addFactory(new ArknightWeiboFunc.ArkFuncFactory(this, weiboReader));
-        loader.addFactory(new WeiboFunc.WeiboFuncFactory(this, weiboReader));
-        loader.addFactory(new GenshinWeiboFunc.GenshinFuncFactory(this, weiboReader));
-        loader.addScanPackage("com.aye10032.utils.timeutil");
-        registerFunc = loader.load();
-        registerFunc.add(new HistoryTodayFunc(this, historyTodayService));
-        registerFunc.add(new BanFunc(this, banRecordService, killRecordService));
-        //对功能进行初始化
-        for (IFunc func : registerFunc) {
-            try {
-                func.setUp();
-            } catch (Exception e) {
-                logWarning("初始化：" + func.getClass().getName() + "出现异常");
-                e.printStackTrace();
-            }
-        }
-        log(Level.INFO, "registe func end");*/
-
-        //把订阅管理器注册进可用的模块里
-        //registerFunc.add(subManager);
-
-
-
-/*        //创建teamspeakbot对象
-        teamspeakBot = new TeamspeakBot(this);
-        try {
-            teamspeakBot.setup();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
         bot.getEventChannel().subscribeAlways(MessageEvent.class, messageEvent -> {
             SimpleMsg simpleMsg = new SimpleMsg(messageEvent);
             if (simpleMsg.isGroupMsg()) {
