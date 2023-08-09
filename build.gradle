@@ -32,6 +32,12 @@ dependencies {
 
     compileOnly "org.projectlombok:lombok"
     annotationProcessor 'org.projectlombok:lombok'
+
+    // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.5.3.2'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
+
 }
 
 tasks.named('test') {

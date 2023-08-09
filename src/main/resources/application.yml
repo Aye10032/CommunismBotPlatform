@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/bot"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: bot
+    password: "XZj#jb@ut5~!c%jquqi9"
+  quartz:
+    auto-startup: true
+    job-store-type: jdbc
+    wait-for-jobs-to-complete-on-shutdown: true
+    overwrite-existing-jobs: true
+    properties:
+      org:
+        quartz:
+          jobStore:
+            class : org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            driverDelegateClass : org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount : 10
+            threadsInheritContextClassLoaderOfInitializingThread : true
