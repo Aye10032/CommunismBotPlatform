@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
+}
+
+group = 'com.aye10032'
+version = '0.0.1'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenLocal()
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://jitpack.io' }
+    maven { url "https://repo.mirai.mamoe.net/snapshots" }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-quartz:${springVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springVersion}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springVersion}"
+
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
