@@ -21,3 +21,8 @@ spring:
             class: org.quartz.simpl.SimpleThreadPool
             threadCount : 10
             threadsInheritContextClassLoaderOfInitializingThread : true
+    jdbc:
+      initialize-schema: never
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd hh:mm:ss
