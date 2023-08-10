@@ -101,7 +101,7 @@ public class CommunismBot implements ApplicationContextAware {
     public CommunismBot(@Autowired Bot bot) {
         this.bot = bot;
         // bot启用的群
-//        enableGroup.add(11111111L);
+        enableGroup.add(1044102726L);
     }
 
     @Autowired

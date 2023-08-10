@@ -1,6 +1,6 @@
 package com.aye10032.communismbotplatform.foundation.utils.timeutil;
 
-import com.aye10032.foundation.utils.ExceptionUtils;
+import com.aye10032.communismbotplatform.foundation.utils.ExceptionUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
