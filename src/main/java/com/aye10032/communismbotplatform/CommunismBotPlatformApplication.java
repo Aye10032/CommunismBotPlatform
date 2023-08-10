@@ -6,9 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication(scanBasePackages = {"com.aye10032"})
+@SpringBootApplication(scanBasePackages = {"com.aye10032.communismbotplatform"})
 @MapperScans({
-        @MapperScan("com.aye10032.mapper")
+        @MapperScan("com.aye10032.communismbotplatform.mapper")
 })
 @EnableTransactionManagement
 public class CommunismBotPlatformApplication {
