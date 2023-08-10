@@ -14,14 +14,14 @@ public class BeanConfig {
         return new AsynchronousTaskPool();
     }
 
-    @Bean("tigangSub")
+    @Bean("simpleSub")
     public SimpleSubscription tigang(CommunismBot bot) {
         return new SimpleSubscription(
                 "0 0 19 * * ? ",
-                bot.getImg(bot.appDirectory + "/tigang.jpg")) {
+                bot.getImg(bot.appDirectory + "/image/test.jpg")) {
             @Override
             public String getName() {
-                return "提肛小助手";
+                return "简易订阅器";
             }
         };
     }

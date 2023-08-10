@@ -21,7 +21,7 @@ import java.util.List;
 public class ExampleTask extends SubscribableBase {
     @Override
     public String getName() {
-        return "订阅小助手";
+        return "自定义订阅器";
     }
 
     @Override
@@ -29,13 +29,11 @@ public class ExampleTask extends SubscribableBase {
         if (recivers != null) {
             if (compareTo(7)) {
                 for (Reciver reciver : recivers) {
-                    getBot().replyMsg(reciver.getSender(),
-                            getBot().getImg(new File(getBot().appDirectory + "/image/getup.jpg")));
+                    getBot().replyMsg(reciver.getSender(), "起床！");
                 }
             } else if (compareTo(23)) {
                 for (Reciver reciver : recivers) {
-                    getBot().replyMsg(reciver.getSender(),
-                            getBot().getImg(new File(getBot().appDirectory + "/image/sleep.jpg")));
+                    getBot().replyMsg(reciver.getSender(), "该睡了");
                 }
             }
         }
