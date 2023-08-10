@@ -1,7 +1,7 @@
 package com.aye10032.communismbotplatform.bot.func.funcutil;
 
 import com.aye10032.communismbotplatform.foundation.utils.ExceptionUtils;
-import com.aye10032.communismbotplatform.foundation.utils.command.exceptions.RedundantParametersException;
+import com.aye10032.communismbotplatform.foundation.exception.RedundantParametersException;
 import com.aye10032.communismbotplatform.foundation.utils.command.interfaces.ExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 

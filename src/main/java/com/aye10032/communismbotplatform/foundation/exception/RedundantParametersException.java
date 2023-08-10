@@ -1,4 +1,4 @@
-package com.aye10032.communismbotplatform.foundation.utils.command.exceptions;
+package com.aye10032.communismbotplatform.foundation.exception;
 
 /**
  * 命令执行时参数过多的异常

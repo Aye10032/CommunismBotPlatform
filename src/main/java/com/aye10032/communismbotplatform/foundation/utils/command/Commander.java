@@ -1,6 +1,6 @@
 package com.aye10032.communismbotplatform.foundation.utils.command;
 
-import com.aye10032.communismbotplatform.foundation.utils.command.exceptions.RedundantParametersException;
+import com.aye10032.communismbotplatform.foundation.exception.RedundantParametersException;
 import com.aye10032.communismbotplatform.foundation.utils.command.interfaces.CommandRun;
 import com.aye10032.communismbotplatform.foundation.utils.command.interfaces.ExceptionHandler;
 import com.aye10032.communismbotplatform.foundation.utils.command.interfaces.GlobeCheck;

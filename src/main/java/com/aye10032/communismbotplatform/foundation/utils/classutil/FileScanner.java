@@ -1,5 +1,7 @@
 package com.aye10032.communismbotplatform.foundation.utils.classutil;
 
+import com.aye10032.communismbotplatform.foundation.exception.ScannerClassException;
+
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;

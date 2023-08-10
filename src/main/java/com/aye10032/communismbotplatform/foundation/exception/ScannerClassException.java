@@ -1,4 +1,4 @@
-package com.aye10032.communismbotplatform.foundation.utils.classutil;
+package com.aye10032.communismbotplatform.foundation.exception;
 
 /**
  * @author Dazo66

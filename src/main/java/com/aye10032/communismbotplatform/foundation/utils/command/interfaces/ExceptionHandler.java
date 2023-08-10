@@ -1,6 +1,6 @@
 package com.aye10032.communismbotplatform.foundation.utils.command.interfaces;
 
-import com.aye10032.communismbotplatform.foundation.utils.command.exceptions.RedundantParametersException;
+import com.aye10032.communismbotplatform.foundation.exception.RedundantParametersException;
 
 /**
  * 异常处理器
